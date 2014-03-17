@@ -57,18 +57,20 @@ $("#today-student").append(function(){
 					|| (date[2] == year && date[1] == month && date[0] < day))
 					continue ;
 				var register = $(tagazok[i]).find(".eventzone .has-registered").hasClass("is-registered");
+				places = $(tagazok[i]).find(".nb_registered").html();
+				places_OK = $(tagazok[i]).find(".num .location .label").html().replace(" place(s) disponible(s))", "").split('(')[1];
 				toscreen += '<div style=" \
 								margin-bottom:10px; \
 								box-shadow: 0px 0px 1px #2A2A2A; '
-								+ (register ? 'background-color: #ffffff;' : '')
+								+ ((places != places_OK || register) ? 'background-color: #ffffff;' : '')
 								+ ' padding: 5px; \
 							">';
-				places = $(tagazok[i]).find(".nb_registered").html();
-				places_OK = $(tagazok[i]).find(".num .location .label").html().replace(" place(s) disponible(s))", "").split('(')[1];
-				if (places != places_OK)
+				if (register)
 					color = "#01824A";
-				else
+				else if (places == places_OK)
 					color = "#F5634A";
+				else
+					color = "#000000";
 				toscreen += "<h4 style=\"color:" + color + ";\">";
 				toscreen += '<span class="icon" \
 								style=" \
@@ -85,9 +87,12 @@ $("#today-student").append(function(){
 				toscreen += "le " + $(tagazok[i]).find(".data .date span").last().html();
 				if (register)
 					toscreen += "<br/>-> Vous êtes <strong>inscrit</strong>, c'est bien !";
+				if (places != places_OK)
+					toscreen += "<br/>-> <strong>" + (places_OK - places) + " places</strong> disponibles !";
+				else
+					toscreen += "<br/>-> plus de place"
 				toscreen += "<br/>-> Voir le <a href=\"https://intra.42.fr/module/2013/ADM-0-002/PAR-0-1/"
 				+ $(tagazok[i]).find(".acti-title a").attr('href') + "\">résumé</a>";
-				var test = 0.9;
 				if (date[2] == year && date[1] == month && date[0] == day)
 					toscreen += '<span style=" \
 									background-color:#F3AF4D; \
@@ -98,18 +103,20 @@ $("#today-student").append(function(){
 									aujourd\'hui\
 								</span>';
 				else
+				{
 					toscreen += '<span style=" \
 									background-color:#2A2A2A; \
 									color: #ffffff; \
 									padding: 1px 3px; \
 									float: right; \
 									display: block; \
-								">\
-									dans '
-								+ jour_restant
-								+ ' jour'
-								+ (jour_restant > 1 ? 's' : '')
-								+ '</span>';
+								">';
+					if (jour_restant > 1)
+						toscreen += 'dans ' + jour_restant + ' jours'
+					else
+						toscreen += "demain"				
+					toscreen += '</span>';
+				}
 				toscreen += '<div style="clear: both;"></div>';
 				toscreen += "</div>";
 			}
