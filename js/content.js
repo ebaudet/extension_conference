@@ -58,7 +58,7 @@ $("#today-student").append(function(){
 					continue ;
 				var register = $(tagazok[i]).find(".eventzone .has-registered").hasClass("is-registered");
 				places = $(tagazok[i]).find(".nb_registered").html();
-				places_OK = $(tagazok[i]).find(".num .location .label").html().replace(" place(s) disponible(s))", "").split('(')[1];
+				places_OK = $(tagazok[i]).find(".num .location .label").text().replace(" place(s) disponible(s))", "").split('(')[1];
 				toscreen += '<div style=" \
 								margin-bottom:10px; \
 								box-shadow: 0px 0px 1px #2A2A2A; '
