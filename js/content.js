@@ -46,10 +46,19 @@ $("#today-student").append(function(){
 			var day = d.getDate();
 			var month = d.getMonth() + 1;
 			var year = d.getFullYear();
+			var tab = [];
 
 			title += "<h3>" + "Conférence(s) :" + "</h3>";
-			for (i = 0; i < max; i++)
+			for (var i = 0; i < max; i++)
 			{
+				var fesse = $(tagazok[i]).find(".data .date span").text().trim().substr(0, 10).split("/");
+				fesse.push(i);
+				tab.push(fesse);
+			}
+			tab.sort();
+			for (var j = 0; j < max; j++)
+			{
+				var i = tab[j][3];
 				var date = $(tagazok[i]).find(".data .date span").text().trim().substr(0, 10).split("/");
 				var date_conf = new Date(date[2], date[1] - 1, date[0], 0, 0);
 				var jour_restant = Math.ceil((date_conf.getTime() - d.getTime()) / (3600000 * 24));
