@@ -52,13 +52,15 @@ $("#today-student").append(function(){
 			for (var i = 0; i < max; i++)
 			{
 				var fesse = $(tagazok[i]).find(".data .date span").text().trim().substr(0, 10).split("/");
-				fesse.push(i);
-				tab.push(fesse);
+				var heure = $(tagazok[i]).find(".data .date span").text().trim().split("-")[1].split("h")[0];
+				var date_order = new Date(fesse[2], fesse[1] - 1, fesse[0], heure, 0);
+				var value = [date_order.getTime(), i];
+				tab.push(value);
 			}
 			tab.sort();
 			for (var j = 0; j < max; j++)
 			{
-				var i = tab[j][3];
+				var i = tab[j][1];
 				var date = $(tagazok[i]).find(".data .date span").text().trim().substr(0, 10).split("/");
 				var date_conf = new Date(date[2], date[1] - 1, date[0], 0, 0);
 				var jour_restant = Math.ceil((date_conf.getTime() - d.getTime()) / (3600000 * 24));
@@ -70,9 +72,12 @@ $("#today-student").append(function(){
 				places_OK = $(tagazok[i]).find(".num .location .label").text().replace(" place(s) disponible(s))", "").split('(')[1];
 				toscreen += '<div style=" \
 								margin-bottom:10px; \
-								box-shadow: 0px 0px 1px #2A2A2A; '
-								+ ((places != places_OK || register) ? 'background-color: #ffffff;' : '')
-								+ ' padding: 5px; \
+								box-shadow: 0px 0px 1px #2A2A2A; ';
+				if (register)
+					toscreen += 'background-color: #D8F6CE;';
+				else if (places != places_OK)
+					toscreen += 'background-color: #ffffff;';
+				toscreen += ' padding: 5px; \
 							">';
 				if (register)
 					color = "#01824A";
