@@ -51,9 +51,10 @@ $("#today-student").append(function(){
 			title += "<h3>" + "Conférence(s) :" + "</h3>";
 			for (var i = 0; i < max; i++)
 			{
-				var fesse = $(tagazok[i]).find(".data .date span").text().trim().substr(0, 10).split("/");
-				var heure = $(tagazok[i]).find(".data .date span").text().trim().split("-")[1].split("h")[0];
-				var date_order = new Date(fesse[2], fesse[1] - 1, fesse[0], heure, 0);
+				var tab_date = $(tagazok[i]).find(".data .date span").text().trim().substr(0, 10).split("/");
+				if (tab_date.length == 3)
+					var heure = $(tagazok[i]).find(".data .date span").text().trim().split("-")[1].split("h")[0];
+				var date_order = new Date(tab_date[2], tab_date[1] - 1, tab_date[0], heure, 0);
 				var value = [date_order.getTime(), i];
 				tab.push(value);
 			}
