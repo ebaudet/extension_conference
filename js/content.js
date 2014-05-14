@@ -47,6 +47,7 @@ $("#today-student").append(function(){
 			var month = d.getMonth() + 1;
 			var year = d.getFullYear();
 			var tab = [];
+			var semaine = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];
 
 			title += "<h3>" + "Conférence(s) :" + "</h3>";
 			for (var i = 0; i < max; i++)
@@ -99,7 +100,7 @@ $("#today-student").append(function(){
 								"> \
 							</span>'
 				toscreen += $(tagazok[i]).find(".acti-title a").html().replace("Conférence : ", "") + "</h4>";
-				toscreen += "le " + $(tagazok[i]).find(".data .date span").last().html();
+				toscreen += semaine[date_conf.getDay() - 1] + $(tagazok[i]).find(".data .date span").last().html();
 				if (register)
 					toscreen += "<br/>-> Vous êtes <strong>inscrit</strong>, c'est bien !";
 				if (places != places_OK)
