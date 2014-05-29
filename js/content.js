@@ -9,7 +9,7 @@
 
 $("#today-student").append(function(){
 	$(this).append(" \
-		<div class=\"column conf\"> \
+		<div class=\"column conf\" style=\"width: 24%\">	\
 			<span> \
 				<span class=\"icon\" \
 					style=\" \
